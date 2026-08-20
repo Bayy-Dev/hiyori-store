@@ -3,8 +3,7 @@
   const KEY = 'hiyori-theme';
   const root = document.documentElement;
   const saved = localStorage.getItem(KEY);
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const initial = saved || (prefersDark ? 'dark' : 'light');
+  const initial = saved || 'light';
   if (initial === 'dark') root.setAttribute('data-theme', 'dark');
 
   function replayBadgeAnim(){
