@@ -157,8 +157,9 @@ genBtn.addEventListener('click', () => {
       return;
     }
 
-    document.getElementById('qrcode').innerHTML = "";
-    new QRCode(document.getElementById('qrcode'), {
+    const qrcodeEl = document.getElementById('qrcode');
+    qrcodeEl.innerHTML = "";
+    new QRCode(qrcodeEl, {
       text: dynamicPayload,
       width: 200,
       height: 200,
@@ -166,6 +167,12 @@ genBtn.addEventListener('click', () => {
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.M
     });
+
+    // Library qrcodejs otomatis nempelin atribut "title" (isi payload QRIS mentah)
+    // ke elemen img/canvas hasil generate, sehingga muncul sebagai tooltip saat hover.
+    // Dihapus di sini biar payload QRIS gak bocor lewat tooltip.
+    qrcodeEl.removeAttribute('title');
+    qrcodeEl.querySelectorAll('[title]').forEach(el => el.removeAttribute('title'));
 
     qrAmountText.textContent = "Rp " + nominal.toLocaleString('id-ID');
     qrResult.classList.add('show');
